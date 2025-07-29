@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Todo, TodoStatus } from '../types/todo';
+import { LABELS, INPUT_TYPES, DEFAULT_VALUES, TODO_STATUS } from '../constants/strings';
 
 type TodoItemProps = {
   todo: Todo;
@@ -12,7 +13,7 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onStatusChange }: TodoItemP
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
   const [editDescription, setEditDescription] = useState(todo.description);
-  const [editDeadline, setEditDeadline] = useState(todo.deadline || '');
+  const [editDeadline, setEditDeadline] = useState(todo.deadline || DEFAULT_VALUES.EMPTY_STRING);
 
   const handleSave = () => {
     onUpdate(todo.id, {
@@ -26,12 +27,12 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onStatusChange }: TodoItemP
   const handleCancel = () => {
     setEditTitle(todo.title);
     setEditDescription(todo.description);
-    setEditDeadline(todo.deadline || '');
+    setEditDeadline(todo.deadline || DEFAULT_VALUES.EMPTY_STRING);
     setIsEditing(false);
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString('ja-JP');
+    return new Date(dateString).toLocaleString(DEFAULT_VALUES.LOCALE);
   };
 
   return (
@@ -39,16 +40,16 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onStatusChange }: TodoItemP
       {isEditing ? (
         <div>
           <div>
-            <label htmlFor={`edit-title-${todo.id}`}>タイトル:</label>
+            <label htmlFor={`edit-title-${todo.id}`}>{LABELS.TITLE}</label>
             <input
               id={`edit-title-${todo.id}`}
-              type="text"
+              type={INPUT_TYPES.TEXT}
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
             />
           </div>
           <div>
-            <label htmlFor={`edit-description-${todo.id}`}>詳細:</label>
+            <label htmlFor={`edit-description-${todo.id}`}>{LABELS.DESCRIPTION}</label>
             <textarea
               id={`edit-description-${todo.id}`}
               value={editDescription}
@@ -56,37 +57,37 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onStatusChange }: TodoItemP
             />
           </div>
           <div>
-            <label htmlFor={`edit-deadline-${todo.id}`}>期限:</label>
+            <label htmlFor={`edit-deadline-${todo.id}`}>{LABELS.DEADLINE}</label>
             <input
               id={`edit-deadline-${todo.id}`}
-              type="date"
+              type={INPUT_TYPES.DATE}
               value={editDeadline}
               onChange={(e) => setEditDeadline(e.target.value)}
             />
           </div>
-          <button onClick={handleSave}>保存</button>
-          <button onClick={handleCancel}>キャンセル</button>
+          <button onClick={handleSave}>{LABELS.SAVE}</button>
+          <button onClick={handleCancel}>{LABELS.CANCEL}</button>
         </div>
       ) : (
         <div>
           <h3>{todo.title}</h3>
-          <p>ID: {todo.id}</p>
-          <p>詳細: {todo.description}</p>
-          <p>ステータス: 
+          <p>{LABELS.ID} {todo.id}</p>
+          <p>{LABELS.DESCRIPTION} {todo.description}</p>
+          <p>{LABELS.STATUS} 
             <select
               value={todo.status}
               onChange={(e) => onStatusChange(todo.id, e.target.value as TodoStatus)}
             >
-              <option value="未着手">未着手</option>
-              <option value="進行中">進行中</option>
-              <option value="完了">完了</option>
+              <option value={TODO_STATUS.NOT_STARTED}>{TODO_STATUS.NOT_STARTED}</option>
+              <option value={TODO_STATUS.IN_PROGRESS}>{TODO_STATUS.IN_PROGRESS}</option>
+              <option value={TODO_STATUS.COMPLETED}>{TODO_STATUS.COMPLETED}</option>
             </select>
           </p>
-          {todo.deadline && <p>期限: {todo.deadline}</p>}
-          <p>作成日: {formatDate(todo.createdAt)}</p>
-          <p>更新日: {formatDate(todo.updatedAt)}</p>
-          <button onClick={() => setIsEditing(true)}>編集</button>
-          <button onClick={() => onDelete(todo.id)}>削除</button>
+          {todo.deadline && <p>{LABELS.DEADLINE} {todo.deadline}</p>}
+          <p>{LABELS.SORT_BY_CREATED}: {formatDate(todo.createdAt)}</p>
+          <p>{LABELS.SORT_BY_UPDATED}: {formatDate(todo.updatedAt)}</p>
+          <button onClick={() => setIsEditing(true)}>{LABELS.EDIT}</button>
+          <button onClick={() => onDelete(todo.id)}>{LABELS.DELETE}</button>
         </div>
       )}
     </div>

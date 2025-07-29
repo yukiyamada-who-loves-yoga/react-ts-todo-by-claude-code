@@ -1,4 +1,5 @@
 import type { FilterOptions, TodoStatus } from '../types/todo';
+import { LABELS, INPUT_TYPES, ELEMENT_IDS, DEFAULT_VALUES, TODO_STATUS } from '../constants/strings';
 
 type TodoFilterProps = {
   filter: FilterOptions;
@@ -27,40 +28,40 @@ export const TodoFilter = ({ filter, onFilterChange }: TodoFilterProps) => {
 
   return (
     <div>
-      <h3>絞り込み</h3>
+      <h3>{LABELS.FILTER}</h3>
       <div>
-        <label htmlFor="filter-id">ID:</label>
+        <label htmlFor={ELEMENT_IDS.FILTER_ID}>{LABELS.ID}</label>
         <input
-          id="filter-id"
-          type="text"
-          value={filter.id || ''}
+          id={ELEMENT_IDS.FILTER_ID}
+          type={INPUT_TYPES.TEXT}
+          value={filter.id || DEFAULT_VALUES.EMPTY_STRING}
           onChange={handleIdChange}
-          placeholder="IDで検索"
+          placeholder={LABELS.SEARCH_BY_ID}
         />
       </div>
       <div>
-        <label htmlFor="filter-status">ステータス:</label>
+        <label htmlFor={ELEMENT_IDS.FILTER_STATUS}>{LABELS.STATUS}</label>
         <select
-          id="filter-status"
-          value={filter.status || ''}
+          id={ELEMENT_IDS.FILTER_STATUS}
+          value={filter.status || DEFAULT_VALUES.EMPTY_STRING}
           onChange={handleStatusChange}
         >
-          <option value="">全て</option>
-          <option value="未着手">未着手</option>
-          <option value="進行中">進行中</option>
-          <option value="完了">完了</option>
+          <option value={DEFAULT_VALUES.EMPTY_STRING}>{LABELS.ALL}</option>
+          <option value={TODO_STATUS.NOT_STARTED}>{TODO_STATUS.NOT_STARTED}</option>
+          <option value={TODO_STATUS.IN_PROGRESS}>{TODO_STATUS.IN_PROGRESS}</option>
+          <option value={TODO_STATUS.COMPLETED}>{TODO_STATUS.COMPLETED}</option>
         </select>
       </div>
       <div>
-        <label htmlFor="filter-deadline">期限:</label>
+        <label htmlFor={ELEMENT_IDS.FILTER_DEADLINE}>{LABELS.DEADLINE}</label>
         <input
-          id="filter-deadline"
-          type="date"
-          value={filter.deadline || ''}
+          id={ELEMENT_IDS.FILTER_DEADLINE}
+          type={INPUT_TYPES.DATE}
+          value={filter.deadline || DEFAULT_VALUES.EMPTY_STRING}
           onChange={handleDeadlineChange}
         />
       </div>
-      <button onClick={clearFilters}>フィルタークリア</button>
+      <button onClick={clearFilters}>{LABELS.CLEAR_FILTERS}</button>
     </div>
   );
 };
