@@ -1,11 +1,12 @@
 import { useState, useCallback, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { Todo, FilterOptions, SortOptions, TodoStatus } from '../types/todo';
+import { TODO_STATUS, SORT_FIELDS, SORT_ORDERS } from '../constants/strings';
 
 export const useTodos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<FilterOptions>({});
-  const [sort, setSort] = useState<SortOptions>({ field: 'createdAt', order: 'desc' });
+  const [sort, setSort] = useState<SortOptions>({ field: SORT_FIELDS.CREATED_AT, order: SORT_ORDERS.DESC });
 
   const addTodo = useCallback((title: string, description: string, deadline?: string) => {
     const now = new Date().toISOString();
@@ -13,7 +14,7 @@ export const useTodos = () => {
       id: uuidv4(),
       title,
       description,
-      status: '未着手',
+      status: TODO_STATUS.NOT_STARTED,
       deadline,
       createdAt: now,
       updatedAt: now,
@@ -55,11 +56,11 @@ export const useTodos = () => {
       const bValue = b[sort.field];
       
       if (!aValue && !bValue) return 0;
-      if (!aValue) return sort.order === 'asc' ? 1 : -1;
-      if (!bValue) return sort.order === 'asc' ? -1 : 1;
+      if (!aValue) return sort.order === SORT_ORDERS.ASC ? 1 : -1;
+      if (!bValue) return sort.order === SORT_ORDERS.ASC ? -1 : 1;
       
       const comparison = aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-      return sort.order === 'asc' ? comparison : -comparison;
+      return sort.order === SORT_ORDERS.ASC ? comparison : -comparison;
     });
 
     return result;

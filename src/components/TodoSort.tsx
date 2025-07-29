@@ -1,4 +1,5 @@
 import type { SortOptions, SortField, SortOrder } from '../types/todo';
+import { LABELS, ELEMENT_IDS, SORT_FIELDS } from '../constants/strings';
 
 type TodoSortProps = {
   sort: SortOptions;
@@ -16,29 +17,29 @@ export const TodoSort = ({ sort, onSortChange }: TodoSortProps) => {
 
   return (
     <div>
-      <h3>ソート</h3>
+      <h3>{LABELS.SORT}</h3>
       <div>
-        <label htmlFor="sort-field">ソート項目:</label>
+        <label htmlFor={ELEMENT_IDS.SORT_FIELD}>{LABELS.SORT_FIELD}</label>
         <select
-          id="sort-field"
+          id={ELEMENT_IDS.SORT_FIELD}
           value={sort.field}
           onChange={handleFieldChange}
         >
-          <option value="id">ID</option>
-          <option value="deadline">期限</option>
-          <option value="createdAt">作成日</option>
-          <option value="updatedAt">更新日</option>
+          <option value={SORT_FIELDS.ID}>{LABELS.SORT_BY_ID}</option>
+          <option value={SORT_FIELDS.DEADLINE}>{LABELS.SORT_BY_DEADLINE}</option>
+          <option value={SORT_FIELDS.CREATED_AT}>{LABELS.SORT_BY_CREATED}</option>
+          <option value={SORT_FIELDS.UPDATED_AT}>{LABELS.SORT_BY_UPDATED}</option>
         </select>
       </div>
       <div>
-        <label htmlFor="sort-order">ソート順:</label>
+        <label htmlFor={ELEMENT_IDS.SORT_ORDER}>{LABELS.SORT_ORDER}</label>
         <select
-          id="sort-order"
+          id={ELEMENT_IDS.SORT_ORDER}
           value={sort.order}
           onChange={handleOrderChange}
         >
-          <option value="asc">昇順</option>
-          <option value="desc">降順</option>
+          <option value="asc">{LABELS.ASCENDING}</option>
+          <option value="desc">{LABELS.DESCENDING}</option>
         </select>
       </div>
     </div>
