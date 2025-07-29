@@ -1,6 +1,6 @@
 import type { FilterOptions, TodoStatus } from '../types/todo';
 
-interface TodoFilterProps {
+type TodoFilterProps = {
   filter: FilterOptions;
   onFilterChange: (filter: FilterOptions) => void;
 }

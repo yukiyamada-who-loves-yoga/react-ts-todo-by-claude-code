@@ -1,6 +1,6 @@
 import type { SortOptions, SortField, SortOrder } from '../types/todo';
 
-interface TodoSortProps {
+type TodoSortProps = {
   sort: SortOptions;
   onSortChange: (sort: SortOptions) => void;
 }

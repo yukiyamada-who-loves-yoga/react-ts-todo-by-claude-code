@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Todo, TodoStatus } from '../types/todo';
 
-interface TodoItemProps {
+type TodoItemProps = {
   todo: Todo;
   onUpdate: (id: string, updates: Partial<Omit<Todo, 'id' | 'createdAt'>>) => void;
   onDelete: (id: string) => void;

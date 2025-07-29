@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-interface TodoFormProps {
+type TodoFormProps = {
   onAdd: (title: string, description: string, deadline?: string) => void;
 }
 

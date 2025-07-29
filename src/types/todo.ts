@@ -1,6 +1,6 @@
 export type TodoStatus = '未着手' | '進行中' | '完了';
 
-export interface Todo {
+export type Todo = {
   id: string;
   title: string;
   status: TodoStatus;
@@ -10,7 +10,7 @@ export interface Todo {
   updatedAt: string;
 }
 
-export interface FilterOptions {
+export type FilterOptions = {
   id?: string;
   status?: TodoStatus;
   deadline?: string;
@@ -19,7 +19,7 @@ export interface FilterOptions {
 export type SortField = 'id' | 'deadline' | 'createdAt' | 'updatedAt';
 export type SortOrder = 'asc' | 'desc';
 
-export interface SortOptions {
+export type SortOptions = {
   field: SortField;
   order: SortOrder;
 }
